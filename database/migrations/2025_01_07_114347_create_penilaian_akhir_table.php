@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('penilaian_akhir', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
+            $table->foreignId('tugas_id')->constrained('tugas')->onDelete('cascade');
+            $table->integer('nilai');
             $table->timestamps();
         });
     }

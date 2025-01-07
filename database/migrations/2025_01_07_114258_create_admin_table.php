@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('admin', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('profile_pic')->nullable(); // URL gambar
             $table->timestamps();
         });
     }

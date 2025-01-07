@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('profile_pic')->nullable();
             $table->timestamps();
+            $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
+            $table->foreignId('group_id')->nullable()->constrained('groups')->onDelete('cascade');
         });
     }
 
