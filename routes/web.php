@@ -13,7 +13,7 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('index');
-});
-// Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('index');
+// });
+Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
