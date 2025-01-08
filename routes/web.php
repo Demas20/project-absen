@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GuruController;
+use App\Http\Controllers\SiswaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,4 +18,29 @@ use App\Http\Controllers\AdminController;
 // Route::get('/dashboard', function () {
 //     return view('index');
 // });
-Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+
+
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AdminController::class, 'login'])->name('admin.login.submit');
+    Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+    Route::middleware('auth:admin', 'admin.role:admin')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('admin.index'); // Buat file Blade ini
+        })->name('admin.dashboard');
+        Route::middleware(['auth:admin', 'admin.role:guru'])->group(function () {
+            Route::get('/guru/dashboard', [GuruController::class, 'index']);
+        });
+
+        Route::middleware(['auth:admin', 'admin.role:siswa'])->group(function () {
+            Route::get('/siswa/dashboard', [SiswaController::class, 'index']);
+        });
+    });
+});
+
+
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

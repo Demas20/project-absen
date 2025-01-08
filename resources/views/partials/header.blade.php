@@ -17,7 +17,7 @@
                 </div>
             </div>
             <a href="index.html">
-                <img class="img-fluid" src="assets/images/logo.spng" alt="Theme-Logo" />
+                <img class="img-fluid" src="assets/images/logsos.jpeg"  alt="Theme-Logo" />
             </a>
             <a class="mobile-options waves-effect waves-light">
                 <i class="ti-more"></i>
