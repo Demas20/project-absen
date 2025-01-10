@@ -20,6 +20,8 @@
       <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+
+    <link href="https://cdn.datatables.net/v/dt/dt-2.2.0/datatables.min.css" rel="stylesheet">
     <!-- waves.css -->
     <link rel="stylesheet" href="{{asset('assets/pages/waves/css/waves.min.css')}}" type="text/css" media="all">
       <!-- Required Fremwork -->
@@ -180,6 +182,7 @@
     <!-- menu js -->
     <script src="{{asset('assets/js/pcoded.min.js')}}"></script>
     <script src="{{asset('assets/js/vertical-layout.min.js')}} "></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-2.2.0/datatables.min.js"></script>
     <!-- custom js -->
     <script type="text/javascript" src="{{asset('assets/pages/dashboard/custom-dashboard.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/script.js')}} "></script>

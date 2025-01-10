@@ -30,7 +30,15 @@ class AdminRoleMiddleware
         }
 
         if ($user->role !== $role) {
-            abort(403, 'Unauthorized access.'); // Bisa diarahkan ke halaman lain jika diperlukan
+            // Redirect berdasarkan role user
+            switch ($user->role) {
+                case 'guru':
+                    return redirect()->route('guru.dashboard');
+                case 'siswa':
+                    return redirect()->route('siswa.dashboard');
+                default:
+                    abort(403, 'Unauthorized access.');
+            }
         }
 
         return $next($request);

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 class GuruController extends Controller
 {
     public function index(){
-        dd("oi");
+        return view('Guru.index');
+    }
+    public function create(){
+        return view('Guru.create');
     }
 }

@@ -29,7 +29,10 @@
             </form>
         </div>
         <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Sistem Monitoring</div>
+        @if (Auth::guard('admin')->user()->role === 'admin')
         <ul class="pcoded-item pcoded-left-item">
+
+            {{-- dashboard --}}
             <li class="active">
                 <a href="index.html" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
@@ -37,13 +40,15 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
+            {{-- guru --}}
             <li class=" ">
-                <a href="index.html" class="waves-effect waves-dark">
+                <a href="{{route('guru.dashboard')}}" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-user"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Guru</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
+            {{-- Student --}}
             <li class=" ">
                 <a href="index.html" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-id-badge"></i><b>D</b></span>
@@ -51,7 +56,7 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-
+            {{-- kelas --}}
             <li class=" ">
                 <a href="index.html" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-files"></i><b>D</b></span>
@@ -59,7 +64,7 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-
+            {{-- grup --}}
             <li class=" ">
                 <a href="index.html" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-tablet"></i><b>D</b></span>
@@ -67,7 +72,7 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-
+            {{-- tugas --}}
             <li class=" ">
                 <a href="index.html" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-book"></i><b>D</b></span>
@@ -75,7 +80,7 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-
+            {{-- project --}}
             <li class=" ">
                 <a href="index.html" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-target"></i><b>D</b></span>
@@ -83,7 +88,7 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-
+            {{-- Penilaian --}}
             <li class=" ">
                 <a href="index.html" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-pencil"></i><b>D</b></span>
@@ -173,116 +178,27 @@
                 </ul>
             </li> --}}
         </ul>
-        <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Forms &amp; Tables</div>
-        <ul class="pcoded-item pcoded-left-item">
-            <li>
-                <a href="form-elements-component.html" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Form Components</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-            <li>
-                <a href="bs-basic-table.html" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Basic Table</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
 
-        </ul>
-
-        <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Chart &amp; Maps</div>
-        <ul class="pcoded-item pcoded-left-item">
-            <li>
-                <a href="chart.html" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Chart</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-            <li>
-                <a href="map-google.html" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Maps</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-            <li class="pcoded-hasmenu">
-                <a href="javascript:void(0)" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                    <span class="pcoded-mtext"  data-i18n="nav.basic-components.main">Pages</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class=" ">
-                        <a href="auth-normal-sign-in.html" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Login</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="auth-sign-up.html" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Register</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class=" ">
-                        <a href="sample-page.html" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.basic-components.breadcrumbs">Sample Page</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-        </ul>
-
-        <div class="pcoded-navigation-label" data-i18n="nav.category.other">Other</div>
-        <ul class="pcoded-item pcoded-left-item">
-            <li class="pcoded-hasmenu ">
-                <a href="javascript:void(0)" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Menu Levels</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li class="">
-                        <a href="javascript:void(0)" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Menu Level 2.1</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class="pcoded-hasmenu ">
-                        <a href="javascript:void(0)" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.main">Menu Level 2.2</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                        <ul class="pcoded-submenu">
-                            <li class="">
-                                <a href="javascript:void(0)" class="waves-effect waves-dark">
-                                    <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                    <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Menu Level 3.1</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="">
-                        <a href="javascript:void(0)" class="waves-effect waves-dark">
-                            <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-23">Menu Level 2.3</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-        </ul>
+        @endif
+        @if (Auth::guard('admin')->user()->role === 'guru')
+{{-- project --}}
+<ul class="pcoded-item pcoded-left-item">
+        <li class=" ">
+            <a href="index.html" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-target"></i><b>D</b></span>
+                <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Project</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+        {{-- Penilaian --}}
+        <li class=" ">
+            <a href="index.html" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-pencil"></i><b>D</b></span>
+                <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Penilaian</span>
+                <span class="pcoded-mcaret"></span>
+            </a>
+        </li>
+</ul>
+        @endif
     </div>
 </nav>

@@ -18,10 +18,10 @@ class AdminSeeder extends Seeder
     {
          // Contoh data admin dengan role
          Admin::create([
-            'name' => 'Admin',
-            'username' => 'admin',
-            'password' => Hash::make('password'),
-            'role' => 'admin',
+            'name' => 'guru',
+            'username' => 'guru',
+            'password' => Hash::make('guru'),
+            'role' => 'guru',
         ]);
     }
 }

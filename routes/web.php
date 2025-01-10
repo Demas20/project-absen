@@ -29,18 +29,21 @@ Route::prefix('admin')->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.index'); // Buat file Blade ini
         })->name('admin.dashboard');
-        Route::middleware(['auth:admin', 'admin.role:guru'])->group(function () {
-            Route::get('/guru/dashboard', [GuruController::class, 'index']);
-        });
 
-        Route::middleware(['auth:admin', 'admin.role:siswa'])->group(function () {
-            Route::get('/siswa/dashboard', [SiswaController::class, 'index']);
-        });
+
     });
+
 });
 
 
+Route::middleware(['auth:admin', 'admin.role:guru'])->group(function () {
+    Route::get('/guru/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
+    Route::get('/guru/tambah', [GuruController::class, 'create'])->name('guru.tambah');
+});
 
+Route::middleware(['auth:admin', 'admin.role:siswa'])->group(function () {
+    Route::get('/siswa/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
+});
 // Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
