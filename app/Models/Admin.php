@@ -10,13 +10,14 @@ use Illuminate\Auth\Authenticatable;
 class Admin extends Model implements AuthenticatableContract
 {
     use HasFactory, Authenticatable;
-
+    protected $table = 'admins';
     protected $fillable = [
         'name',
         'username',
         'password',
         'profile_pic',
         'role',
+        'status_login',
     ];
 
     protected $hidden = [

@@ -39,6 +39,7 @@ Route::prefix('admin')->group(function () {
 Route::middleware(['auth:admin', 'admin.role:guru'])->group(function () {
     Route::get('/guru/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
     Route::get('/guru/tambah', [GuruController::class, 'create'])->name('guru.tambah');
+    Route::post('/guru/tambah/coy', [GuruController::class, 'store'])->name('guru.store');
 });
 
 Route::middleware(['auth:admin', 'admin.role:siswa'])->group(function () {
