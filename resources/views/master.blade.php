@@ -36,6 +36,7 @@
       <link rel="stylesheet" type="text/css" href="{{asset('assets/css/jquery.mCustomScrollbar.css')}}">
         <!-- am chart export.css -->
         <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+        <link href="https://cdn.datatables.net/v/dt/dt-2.2.1/datatables.min.css" rel="stylesheet">
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
   </head>
@@ -182,10 +183,19 @@
     <!-- menu js -->
     <script src="{{asset('assets/js/pcoded.min.js')}}"></script>
     <script src="{{asset('assets/js/vertical-layout.min.js')}} "></script>
-    <script src="https://cdn.datatables.net/v/dt/dt-2.2.0/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-2.2.1/datatables.min.js"></script>
     <!-- custom js -->
     <script type="text/javascript" src="{{asset('assets/pages/dashboard/custom-dashboard.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/script.js')}} "></script>
+    <script>
+    $(document).ready(function(){
+        $('#guru').DataTable();
+    });
+    $(document).ready(function(){
+        $('#siswa').DataTable();
+    });
+</script>
+    @yield('script')
 </body>
 
 </html>

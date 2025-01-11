@@ -33,7 +33,7 @@
         <ul class="pcoded-item pcoded-left-item">
 
             {{-- dashboard --}}
-            <li class="active">
+            <li class="">
                 <a href="index.html" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
@@ -41,7 +41,7 @@
                 </a>
             </li>
             {{-- guru --}}
-            <li class=" ">
+            <li class="{{ Route::currentRouteName() === 'guru.dashboard' ? 'active' : '' }}">
                 <a href="{{route('guru.dashboard')}}" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-user"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Guru</span>
@@ -49,8 +49,8 @@
                 </a>
             </li>
             {{-- Student --}}
-            <li class=" ">
-                <a href="index.html" class="waves-effect waves-dark">
+            <li class="{{ Route::currentRouteName() === 'siswa.dashboard' ? 'active' : '' }}">
+                <a href="{{route('siswa.dashboard')}}" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-id-badge"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Student</span>
                     <span class="pcoded-mcaret"></span>
