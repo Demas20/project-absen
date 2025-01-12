@@ -29,12 +29,28 @@ Route::prefix('admin')->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.index'); // Buat file Blade ini
         })->name('admin.dashboard');
+        Route::post('/check-username', [GuruController::class, 'checkUsername'])->name('check.username');
 
         Route::get('/siswa/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
+        Route::get('/siswa/tambah', [SiswaController::class, 'tambahSiswa'])->name('siswa.tambah');
+        Route::post('/siswa/tambah', [SiswaController::class, 'tambahSiswaStore'])->name('siswa.store');
+        Route::post('/check-siswa', [SiswaController::class, 'checkUsername'])->name('siswa.check');
+
+
         Route::get('/guru/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
         Route::get('/guru/tambah', [GuruController::class, 'create'])->name('guru.tambah');
         Route::post('/guru/tambah/coy', [GuruController::class, 'store'])->name('guru.store');
+        //kelas
         Route::get('/kelas/dashboard', [SiswaController::class, 'indexKelas'])->name('kelas.index');
+        Route::get('/kelas/tambah', [SiswaController::class, 'tambahKelas'])->name('kelas.tambah');
+        Route::post('/kelas/tambah', [SiswaController::class, 'tambahKelasStore'])->name('kelas.store');
+        //jurusan
+        Route::get('/jurusan/tambah', [SiswaController::class, 'tambahJurusan'])->name('jurusan.tambah');
+        Route::POST('/jurusan/tambah', [SiswaController::class, 'tambahJurusanStore'])->name('jurusan.store');
+        //group / kelompok
+        Route::get('/group/dashboard', [SiswaController::class, 'indexGroup'])->name('group.index');
+        Route::get('/group/tambah', [SiswaController::class, 'tambahgroup'])->name('group.tambah');
+        Route::POST('/group/tambah', [SiswaController::class, 'tambahgroupStore'])->name('group.store');
     });
 
 });

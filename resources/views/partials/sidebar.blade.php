@@ -57,16 +57,16 @@
                 </a>
             </li>
             {{-- kelas --}}
-            <li class=" ">
-                <a href="index.html" class="waves-effect waves-dark">
+            <li class="{{ Route::currentRouteName() === 'kelas.index' ? 'active' : '' }}">
+                <a href="{{route('kelas.index')}}" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-files"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Kelas</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
             {{-- grup --}}
-            <li class=" ">
-                <a href="index.html" class="waves-effect waves-dark">
+            <li class="{{ Route::currentRouteName() === 'group.index' ? 'active' : '' }}">
+                <a href="{{route('group.index')}}" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-tablet"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Group</span>
                     <span class="pcoded-mcaret"></span>

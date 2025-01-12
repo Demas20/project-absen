@@ -5,8 +5,8 @@
         <div class="row align-items-center">
             <div class="col-md-8">
                 <div class="page-header-title">
-                    <h5 class="m-b-10">Data Kelas</h5>
-                    <p class="m-b-0">Selamat Data Di halaman Data Kelas</p>
+                    <h5 class="m-b-10">Data Kelompok / Group</h5>
+                    <p class="m-b-0">Selamat Data Di halaman Data Group</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -14,7 +14,7 @@
                     <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-user"></i> </a>
                     </li>
-                    <li class="breadcrumb-item"><a href="#!">Data Kelas</a>
+                    <li class="breadcrumb-item"><a href="#!">Data Group</a>
                     </li>
                 </ul>
             </div>
@@ -33,6 +33,7 @@
         <div class="card-header">
             <a href="{{route('kelas.tambah')}}" class="btn btn-success">TAMBAH KELAS</a>
             <a href="{{route('jurusan.tambah')}}" class="btn btn-info">TAMBAH JURUSAN</a>
+            <a href="{{route('group.tambah')}}" class="btn btn-info">TAMBAH GROUP</a>
         </div>
     </div>
     <div class="main-body">
@@ -41,22 +42,16 @@
                 <thead>
                 <tr>
                     <th>
-                        Kelas
-                    </th>
-                    <th>
-                        Jurusan
+                        Nama
                     </th>
                     <th>Option</th>
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach ($kelas as $item)
+                    @foreach ($group as $item)
                     <tr>
                         <th>
                             {{$item->name}}
-                        </th>
-                        <th>
-                            {{$item->jurusan_name}}
                         </th>
                         <td>
                             <a href="" class="btn btn-success"><i class="ti-pencil"></i><b></b></a>
@@ -67,9 +62,6 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>
-                            NIP
-                        </th>
                         <th>
                             Nama
                         </th>

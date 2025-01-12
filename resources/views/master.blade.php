@@ -194,6 +194,7 @@
     $(document).ready(function(){
         $('#siswa').DataTable();
     });
+    
 </script>
     @yield('script')
 </body>

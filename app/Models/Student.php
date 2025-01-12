@@ -9,7 +9,7 @@ use App\Models\Group;
 
 class Student extends Model
 {
-    protected $fillable = ['name', 'profile_pic', 'class_id', 'group_id'];
+    protected $fillable = ['NISN','name', 'profile_pic', 'class_id', 'group_id'];
 
     public function class()
     {

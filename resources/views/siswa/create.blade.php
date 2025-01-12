@@ -6,8 +6,8 @@
         <div class="row align-items-center">
             <div class="col-md-8">
                 <div class="page-header-title">
-                    <h5 class="m-b-10">Data Guru</h5>
-                    <p class="m-b-0">Form Tambah Guru</p>
+                    <h5 class="m-b-10">Data Siswa</h5>
+                    <p class="m-b-0">Form Tambah Siswa</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -15,7 +15,7 @@
                     <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-home"></i> </a>
                     </li>
-                    <li class="breadcrumb-item"><a href="#!">Tambah Guru</a>
+                    <li class="breadcrumb-item"><a href="#!">Tambah Siswa</a>
                     </li>
                 </ul>
             </div>
@@ -30,10 +30,10 @@
 
         <div class="card">
             <div class="card-header">
-                <h5>Form Tambah Guru</h5>
+                <h5>Form Tambah Siswa</h5>
             </div>
             <div class="card-block">
-                <form class="form-material" action="{{route('guru.store')}}" method="POST" enctype="multipart/form-data">
+                <form class="form-material" action="{{route('siswa.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     {{-- Pemberitahuan Error --}}
@@ -55,9 +55,9 @@
                     @endif
 
                     <div class="form-group form-default">
-                        <input type="text" name="NIP" class="form-control" value="{{ old('NIP') }}" required>
+                        <input type="text" name="NISN" class="form-control" value="{{ old('NISN') }}" required>
                         <span class="form-bar"></span>
-                        <label class="float-label">NIP</label>
+                        <label class="float-label">NISN</label>
                     </div>
                     <div class="form-group form-primary">
                         <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
@@ -76,6 +76,26 @@
                         <span class="form-bar"></span>
                         <label class="float-label">Password</label>
                     </div>
+                    <div class="form-group form-primary">
+                        <span class="form-bar"></span>
+                        <label for="">Kelas</label>
+                        <select name="class_id" class="form-control" id="">
+                            @foreach ($kelas as $item)
+                                <option value="{{$item->id}}">{{$item->name}} - {{$item->jurusan_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group form-primary">
+                        <span class="form-bar"></span>
+                        <label for="">Kelompok</label>
+                        <select name="group_id" class="form-control" id="">
+                            @foreach ($group as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="form-group form-warning">
                         <input type="file" name="profile_pic" class="form-control">
                         <span class="form-bar"></span>
@@ -94,7 +114,7 @@
         const feedback = document.getElementById('name-feedback'); // Target feedback untuk nama
 
         if (name.trim() !== '') {
-            fetch("{{ route('check.username') }}", {
+            fetch("{{ route('siswa.check') }}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -123,7 +143,7 @@
         const feedback = document.getElementById('username-feedback'); // Target feedback untuk username
 
         if (username.trim() !== '') {
-            fetch("{{ route('check.username') }}", {
+            fetch("{{ route('siswa.check') }}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

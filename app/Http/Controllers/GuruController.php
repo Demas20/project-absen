@@ -64,4 +64,39 @@ class GuruController extends Controller
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
+    public function checkUsername(Request $request)
+    {
+        $nameExists = Teacher::where('name', $request->name)->exists();
+        $usernameExists = Admin::where('username', $request->username)->exists();
+        $nipExists = Teacher::where('NIP', $request->NIP)->exists();
+
+        if ($nameExists) {
+            return response()->json([
+                'field' => 'name',
+                'status' => 'error',
+                'message' => 'Nama sudah digunakan.'
+            ], 200);
+        }
+
+        if ($usernameExists) {
+            return response()->json([
+                'field' => 'username',
+                'status' => 'error',
+                'message' => 'Username sudah digunakan.'
+            ], 200);
+        }
+
+        if ($nipExists) {
+            return response()->json([
+                'field' => 'username',
+                'status' => 'error',
+                'message' => 'Username sudah digunakan.'
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data valid.'
+        ], 200);
+    }
 }

@@ -6,8 +6,8 @@
         <div class="row align-items-center">
             <div class="col-md-8">
                 <div class="page-header-title">
-                    <h5 class="m-b-10">Data Guru</h5>
-                    <p class="m-b-0">Form Tambah Guru</p>
+                    <h5 class="m-b-10">Data Kelas</h5>
+                    <p class="m-b-0">Form Tambah Kelas</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -15,7 +15,7 @@
                     <li class="breadcrumb-item">
                         <a href="index.html"> <i class="fa fa-home"></i> </a>
                     </li>
-                    <li class="breadcrumb-item"><a href="#!">Tambah Guru</a>
+                    <li class="breadcrumb-item"><a href="#!">Tambah Kelas</a>
                     </li>
                 </ul>
             </div>
@@ -23,6 +23,11 @@
     </div>
 </div>
 
+<div class="card p-2">
+    <div class="card-header">
+        <a href="{{route('jurusan.tambah')}}" class="btn btn-info">TAMBAH JURUSAN</a>
+    </div>
+</div>
 
 <div class="pcoded-inner-content">
     <!-- Main-body start -->
@@ -30,10 +35,10 @@
 
         <div class="card">
             <div class="card-header">
-                <h5>Form Tambah Guru</h5>
+                <h5>Form Tambah Kelas</h5>
             </div>
             <div class="card-block">
-                <form class="form-material" action="{{route('guru.store')}}" method="POST" enctype="multipart/form-data">
+                <form class="form-material" action="{{route('kelas.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     {{-- Pemberitahuan Error --}}
@@ -53,32 +58,20 @@
                             {{ session('success') }}
                         </div>
                     @endif
-
-                    <div class="form-group form-default">
-                        <input type="text" name="NIP" class="form-control" value="{{ old('NIP') }}" required>
-                        <span class="form-bar"></span>
-                        <label class="float-label">NIP</label>
-                    </div>
                     <div class="form-group form-primary">
                         <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
                         <span class="form-bar"></span>
-                        <label class="float-label">Nama</label>
+                        <label class="float-label">Kelas</label>
                         <small id="name-feedback" class="text-danger"></small>
                     </div>
-                    <div class="form-group form-danger">
-                        <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}" required>
+                    <div class="form-group form-primary">
                         <span class="form-bar"></span>
-                        <label class="float-label">Username</label>
-                        <small id="username-feedback" class="text-danger"></small>
-                    </div>
-                    <div class="form-group form-warning">
-                        <input type="password" name="password" class="form-control" required>
-                        <span class="form-bar"></span>
-                        <label class="float-label">Password</label>
-                    </div>
-                    <div class="form-group form-warning">
-                        <input type="file" name="profile_pic" class="form-control">
-                        <span class="form-bar"></span>
+                        <label for="">Jurusan</label>
+                        <select name="jurusan" class="form-control" id="">
+                            @foreach ($jurusan as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <button class="btn btn-success">TAMBAH</button>
@@ -108,7 +101,7 @@
                     feedback.textContent = data.message; // Tampilkan pesan error
                     feedback.style.color = 'red';
                 } else {
-                    feedback.textContent = 'Nama tersedia.';
+                    feedback.textContent = 'Kelas tersedia.';
                     feedback.style.color = 'green';
                 }
             })

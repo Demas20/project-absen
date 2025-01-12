@@ -26,12 +26,12 @@
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
-    @endif
+@endif
     <div class="pcoded-inner-content">
         <!-- Main-body start -->
         <div class="card">
             <div class="card-header">
-                <a href="{{route('guru.tambah')}}" class="btn btn-success">TAMBAH SISWA</a>
+                <a href="{{route('siswa.tambah')}}" class="btn btn-success">TAMBAH SISWA</a>
             </div>
         </div>
         <div class="main-body">
@@ -40,39 +40,45 @@
                     <thead>
                     <tr>
                         <th>
-                            NIP
+                            NISN
                         </th>
                         <th>
                             Nama
                         </th>
-                        <th>Status</th>
+                        <th>Kelas</th>
+                        <th>Kelompok</th>
                         <th>Option</th>
                     </tr>
                     </thead>
                     <tbody>
+                        @foreach ($student as $item)
                         <tr>
                             <th>
-                                NIP
+                                {{$item->NISN}}
                             </th>
                             <th>
-                                Nama
+                                {{$item->name}}
                             </th>
-                            <th>Status</th>
+                            <th>{{$item->class ? $item->class->name : 'Tidak ada kelas'}} - {{$item->class->jurusan->name }}</th>
+                            <th>{{$item->group ? $item->group->name : 'Tidak ada grup'}}</th>
                             <td>
                                 <a href="" class="btn btn-success"><i class="ti-pencil"></i><b></b></a>
                                 <a href="" class="btn btn-danger"><i class="ti-trash"></i></a>
                             </td>
                         </tr>
+                        @endforeach
+                        
                     </tbody>
                     <tfoot>
                         <tr>
                             <th>
-                                NIP
+                                NISN
                             </th>
                             <th>
                                 Nama
                             </th>
-                            <th>Status</th>
+                            <th>Kelas</th>
+                            <th>Kelompok</th>
                             <th>Option</th>
                         </tr>
                     </tfoot>
