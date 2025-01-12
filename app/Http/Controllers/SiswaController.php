@@ -9,6 +9,8 @@ use App\Models\Jurusan;
 use App\Models\Kelas;
 use App\Models\Student;
 use App\Models\Admin;
+use App\Models\Mapel;
+use Illuminate\Support\Facades\Auth;
 
 class SiswaController extends Controller
 {
@@ -208,5 +210,55 @@ class SiswaController extends Controller
 
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
+    }
+    public function tambahMapel(){
+        return view('tugas.tambahMapel');
+    }
+    public function tambahMapelStore(Request $request){
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Mulai transaksi database
+        DB::beginTransaction();
+
+        try {
+            // Simpan data guru ke tabel teacher
+            $mapel = new Mapel();
+            $mapel->name = $validated['name'];
+            $mapel->save();
+
+            // Commit transaksi jika semua berhasil
+            DB::commit();
+
+            return redirect(route('tugas.dashboard'))->with('success', 'Mapel berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            // Rollback transaksi jika ada error
+            DB::rollBack();
+
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+        }
+    }
+
+    //halaman siswa
+    public function halamanSiswa(){
+        // join login siswa nampilkan kelas dan group join bang berdasarkan akun login yaitu name
+        $siswa = Auth::guard('admin')->user();
+        // dd($siswa);
+    // Lakukan join untuk mengambil kelas dan kelompok
+    $siswaDetails = DB::table('students')
+        ->join('classes', 'students.class_id', '=', 'classes.id') // Join dengan kelas
+        ->join('groups', 'students.group_id', '=', 'groups.id') // Join dengan kelompok
+        ->join('jurusan', 'classes.jurusan_id', '=', 'jurusan.id') // Join dengan jurusan
+        ->select(
+            'students.name', 
+            'classes.name as kelas_name', 
+            'groups.name as kelompok_name', 
+            'jurusan.name as jurusan_name'
+        )
+        ->where('students.name', $siswa->name) // Filter berdasarkan siswa yang sedang login
+        ->first();
+        // dd($siswaDetails);
+        return view('siswa.halamanSiswa',compact('siswaDetails'));
     }
 }

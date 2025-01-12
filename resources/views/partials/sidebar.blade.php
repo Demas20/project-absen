@@ -73,18 +73,10 @@
                 </a>
             </li>
             {{-- tugas --}}
-            <li class=" ">
-                <a href="index.html" class="waves-effect waves-dark">
+            <li class="{{ Route::currentRouteName() === 'tugas.dashboard' ? 'active' : '' }}">
+                <a href="{{route('tugas.dashboard')}}" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-book"></i><b>D</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Tugas</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-            {{-- project --}}
-            <li class=" ">
-                <a href="index.html" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-target"></i><b>D</b></span>
-                    <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Project</span>
+                    <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Tugas / Project</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>

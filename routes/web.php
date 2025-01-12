@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\TugasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +37,15 @@ Route::prefix('admin')->group(function () {
         Route::post('/siswa/tambah', [SiswaController::class, 'tambahSiswaStore'])->name('siswa.store');
         Route::post('/check-siswa', [SiswaController::class, 'checkUsername'])->name('siswa.check');
 
+        //mapel
+        Route::get('/mapel/tambah', [SiswaController::class, 'tambahMapel'])->name('mapel.tambah');
+        Route::POST('/mapel/tambah', [SiswaController::class, 'tambahMapelStore'])->name('mapel.store');
+
+
+        //tugas
+        Route::get('/tugas/dashboard', [TugasController::class, 'index'])->name('tugas.dashboard');
+        Route::get('/tugas/tambah', [TugasController::class, 'create'])->name('tugas.tambah');
+        Route::post('/tugas/tambah', [TugasController::class, 'store'])->name('tugas.store');
 
         Route::get('/guru/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
         Route::get('/guru/tambah', [GuruController::class, 'create'])->name('guru.tambah');
@@ -61,6 +71,10 @@ Route::middleware(['auth:admin', 'admin.role:guru'])->group(function () {
 });
 
 Route::middleware(['auth:admin', 'admin.role:siswa'])->group(function () {
+    Route::get('/halaman/siswa', [SiswaController::class, 'halamanSiswa'])->name('siswa.index');
+    Route::get('/tugas', [TugasController::class, 'tugasSiswa'])->name('tugas.siswa');
+    Route::post('/tugas/{id}/upload', [TugasController::class, 'uploadJawaban'])->name('upload.jawaban');
+    Route::post('/tugas/{id}/diskusi', [DiskusiController::class, 'kirimPesan'])->name('diskusi.kirim');
 
 });
 // Auth::routes();

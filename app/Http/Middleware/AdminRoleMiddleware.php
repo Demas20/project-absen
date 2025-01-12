@@ -35,7 +35,7 @@ class AdminRoleMiddleware
                 case 'guru':
                     return redirect()->route('guru.dashboard');
                 case 'siswa':
-                    return redirect()->route('siswa.dashboard');
+                    return redirect()->route('siswa.index');
                 default:
                     abort(403, 'Unauthorized access.');
             }
