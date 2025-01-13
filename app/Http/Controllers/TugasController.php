@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mapel;
 use App\Models\Tugas;
+use App\Models\TaskDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,22 +23,47 @@ class TugasController extends Controller
     public function store(Request $request){
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'deadline' => 'required|date',
-            'file' => 'required|file|mimes:doc,docx,xls,xlsx|max:2048',
+            'file' => 'nullable|file',
             'mapel_id' => 'required|exists:mapels,id',
+            'detail_name.*' => 'required|string|max:255',
+            'detail_deadline.*' => 'required|date',
+            'detail_file.*' => 'nullable|file',
         ]);
-    
-        $filePath = $request->file('file')->store('tasks/files','public');
-    
-        Tugas::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'deadline' => $request->deadline,
-            'file' => $filePath,
-            'mapel_id' => $request->mapel_id,
-        ]);
-    
+
+// Simpan tugas utama
+        $tugas = new Tugas();
+        $tugas->name = $request->name;
+        $tugas->description = $request->description;
+        $tugas->deadline = $request->deadline;
+        $tugas->mapel_id = $request->mapel_id;
+
+        // Simpan file tugas utama
+        if ($request->hasFile('file')) {
+            $tugas->file = $request->file('file')->store('tasks');
+        }
+
+        $tugas->save();
+
+        // Simpan tugas detail
+        if ($request->has('detail_name')) {
+            foreach ($request->detail_name as $index => $detailName) {
+                $detail = new TaskDetail();
+                $detail->task_id = $tugas->id;
+                $detail->name = $detailName;
+                $detail->description = $request->detail_description[$index] ?? null;
+                $detail->deadline = $request->detail_deadline[$index];
+
+                // Simpan file tugas detail
+                if ($request->hasFile("detail_file.$index")) {
+                    $detail->file = $request->file("detail_file.$index")->store('task_details');
+                }
+
+                $detail->save();
+            }
+        }
+
         return redirect()->route('tugas.dashboard')->with('success', 'Tugas berhasil ditambahkan!');
     }
     public function tugasSiswa()

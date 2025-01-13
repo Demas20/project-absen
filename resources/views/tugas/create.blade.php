@@ -70,6 +70,30 @@
                         <label class="form-text">File Word / Excel</label>
                         <input type="file" id="file" name="file" accept=".doc,.docx,.xls,.xlsx" required>
                     </div>
+
+                    <div id="tugas-details">
+                        <h4>Detail Tugas</h4>
+                        <div class="form-group form-warning tugas-detail">
+                            <div class="form-group">
+
+                                <label for="detail_name[]">Nama Detail:</label>
+                                <input type="text" name="detail_name[]" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="detail_description[]">Deskripsi:</label>
+                                <textarea class="form-control" name="detail_description[]"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="detail_deadline[]">Deadline Detail:</label>
+                                <input type="date" name="detail_deadline[]" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="detail_file[]">File:</label>
+                                <input type="file" name="detail_file[]" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group form-success">
                         <label for="mapel_id">Mata Pelajaran</label>
                         <select name="mapel_id" class="form-control" id="mapel_id">
@@ -78,6 +102,7 @@
                             @endforeach
                         </select>
                     </div>
+                    <button type="button" id="add-detail">Tambah Detail</button>
 
                     <button class="btn btn-success">TAMBAH</button>
                 </form>
@@ -145,8 +170,14 @@
         }
     });
 </script>
-
+<script>
+    document.getElementById('add-detail').addEventListener('click', function () {
+        const details = document.getElementById('tugas-details');
+        const newDetail = details.querySelector('.tugas-detail').cloneNode(true);
+        details.appendChild(newDetail);
+    });
+</script>
 @endsection
 @section('script')
-    
+
 @endsection

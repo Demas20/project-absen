@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\TugasController;
+use App\Http\Controllers\DiskusiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
