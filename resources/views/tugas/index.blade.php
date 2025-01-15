@@ -29,6 +29,8 @@
 
 <div class="pcoded-inner-content">
     <!-- Main-body start -->
+    <div class="container">
+
     <div class="card">
         <div class="card-header">
             <a href="{{route('kelas.tambah')}}" class="btn btn-success">TAMBAH KELAS</a>
@@ -74,6 +76,7 @@
               </table>
         </div>
         <div id="styleSelector"> </div>
+    </div>
     </div>
 </div>
 

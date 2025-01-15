@@ -105,7 +105,9 @@
               <div class="pcoded-wrapper">
                   @include('partialsSiswa.sidebar')
                   <div class="pcoded-content">
-                    @yield('content')
+                    <div class="container">
+                        @yield('content')
+                    </div>
                   </div>
                 </div>
             </div>
@@ -162,6 +164,9 @@
     <script type="text/javascript" src="{{asset('assets/js/popper.js/popper.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/js/bootstrap/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('assets/pages/widget/excanvas.js')}}"></script>
+    <!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- waves js -->
     <script src="{{asset('assets/pages/waves/js/waves.min.js')}}"></script>
     <!-- jquery slimscroll js -->
@@ -194,7 +199,7 @@
     $(document).ready(function(){
         $('#siswa').DataTable();
     });
-    
+
 </script>
     @yield('script')
 </body>

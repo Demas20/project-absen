@@ -10,6 +10,8 @@ use App\Models\Kelas;
 use App\Models\Student;
 use App\Models\Admin;
 use App\Models\Mapel;
+use App\Models\Tugas;
+use App\Models\TaskDetail;
 use Illuminate\Support\Facades\Auth;
 
 class SiswaController extends Controller
@@ -23,7 +25,7 @@ class SiswaController extends Controller
         $kelas = DB::table('classes')
             ->join('jurusan', 'classes.jurusan_id', '=', 'jurusan.id') // Sesuaikan kondisi join
             ->select('classes.id','jurusan.name as jurusan_name','classes.name')->get();
-        $group = Group::all();    
+        $group = Group::all();
         return view('siswa.create',compact('kelas','group'));
     }
     public function tambahSiswaStore(Request $request){
@@ -244,6 +246,11 @@ class SiswaController extends Controller
     public function halamanSiswa(){
         // join login siswa nampilkan kelas dan group join bang berdasarkan akun login yaitu name
         $siswa = Auth::guard('admin')->user();
+        $tugas = Tugas::all();
+        // $tugasID = Tugas::find('id');
+        // $tugasID = $tugas->id; // Asumsikan $tugas sudah didefinisikan
+        $detailTugas = TaskDetail::get();
+
         // dd($siswa);
     // Lakukan join untuk mengambil kelas dan kelompok
     $siswaDetails = DB::table('students')
@@ -251,14 +258,16 @@ class SiswaController extends Controller
         ->join('groups', 'students.group_id', '=', 'groups.id') // Join dengan kelompok
         ->join('jurusan', 'classes.jurusan_id', '=', 'jurusan.id') // Join dengan jurusan
         ->select(
-            'students.name', 
-            'classes.name as kelas_name', 
-            'groups.name as kelompok_name', 
+            'students.name',
+            'classes.name as kelas_name',
+            'groups.name as kelompok_name',
             'jurusan.name as jurusan_name'
-        )
-        ->where('students.name', $siswa->name) // Filter berdasarkan siswa yang sedang login
-        ->first();
+        )->where('students.name','=', $siswa->name)->first();
+        // dd($detailTugas);
         // dd($siswaDetails);
-        return view('siswa.halamanSiswa',compact('siswaDetails'));
+        return view('siswa.halamanSiswa',compact('siswaDetails','tugas','detailTugas'));
+    }
+    public function detailTugas($id){
+        dd($id);
     }
 }

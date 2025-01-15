@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Mapel;
 use App\Models\Tugas;
+use App\Models\Group;
+use App\Models\GroupSubtask;
 use App\Models\TaskDetail;
 use Illuminate\Http\Request;
+use App\Models\Diskusi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -41,7 +44,7 @@ class TugasController extends Controller
 
         // Simpan file tugas utama
         if ($request->hasFile('file')) {
-            $tugas->file = $request->file('file')->store('tasks');
+            $tugas->file = $request->file('file')->store('tasks', 'public');
         }
 
         $tugas->save();
@@ -50,14 +53,14 @@ class TugasController extends Controller
         if ($request->has('detail_name')) {
             foreach ($request->detail_name as $index => $detailName) {
                 $detail = new TaskDetail();
-                $detail->task_id = $tugas->id;
+                $detail->tugas_id = $tugas->id;
                 $detail->name = $detailName;
                 $detail->description = $request->detail_description[$index] ?? null;
                 $detail->deadline = $request->detail_deadline[$index];
 
                 // Simpan file tugas detail
                 if ($request->hasFile("detail_file.$index")) {
-                    $detail->file = $request->file("detail_file.$index")->store('task_details');
+                    $detail->file = $request->file("detail_file.$index")->store('task_details', 'public');
                 }
 
                 $detail->save();
@@ -101,6 +104,47 @@ class TugasController extends Controller
         ]);
 
         return back()->with('success', 'Jawaban berhasil diunggah!');
+    }
+    public function detailTugas($id)
+    {
+        $siswa = Auth::guard('admin')->user();
+
+        // Ambil group_id siswa dari tabel lain jika tidak ada langsung di tabel admin
+        $groupId = DB::table('students')
+            ->where('name', '=', $siswa->name) // Cari berdasarkan nama admin
+            ->value('group_id'); // Ambil group_id siswa
+
+        if (!$groupId) {
+            return redirect()->route('tugas.index')->with('error', 'Group ID siswa tidak ditemukan.');
+        }
+        $diskusi = Diskusi::where('tugas_id', $id)
+        ->where('group_id', $groupId)
+        ->with('user') // Menampilkan nama user yang memberi komentar
+        ->get();
+        // Ambil data tugas dengan subtugas yang sesuai dengan group_id
+        $tugas = Tugas::with(['details.groupSubtasks' => function ($query) use ($groupId) {
+            $query->where('group_id', $groupId); // Filter berdasarkan group_id
+        }])->find($id);
+        // dd($tugas);
+        $siswaDetails = DB::table('students')
+        ->join('classes', 'students.class_id', '=', 'classes.id') // Join dengan kelas
+        ->join('groups', 'students.group_id', '=', 'groups.id') // Join dengan kelompok
+        ->join('jurusan', 'classes.jurusan_id', '=', 'jurusan.id') // Join dengan jurusan
+        ->select(
+            'students.name',
+            'groups.id as group_id',
+            'classes.name as kelas_name',
+            'groups.name as kelompok_name',
+            'jurusan.name as jurusan_name'
+        )->where('students.name','=', $siswa->name)->first();
+
+        if (!$tugas) {
+            return redirect()->route('tugas.index')->with('error', 'Tugas tidak ditemukan.');
+        }
+            // dd($diskusi);
+        // dd($groupId);
+        // dd($tugas->details);
+        return view('tugas.detail', compact('tugas','diskusi','groupId','siswaDetails'));
     }
 
 }

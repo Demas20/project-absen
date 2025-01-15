@@ -16,4 +16,9 @@ class Tugas extends Model
     {
         return $this->belongsTo(Mapel::class, 'mapel_id');
     }
+    public function details()
+    {
+        return $this->hasMany(TaskDetail::class, 'tugas_id');
+    }
+
 }

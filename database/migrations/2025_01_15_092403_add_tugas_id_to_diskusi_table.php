@@ -13,16 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tugas_details', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('tugas_id');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('file')->nullable();
-            $table->date('deadline')->nullable();
-            $table->boolean('is_completed')->default(false);
-            $table->timestamps();
+        Schema::table('diskusi', function (Blueprint $table) {
+            $table->unsignedBigInteger('tugas_id')->after('id');
 
+            // Menambahkan foreign key jika perlu
             $table->foreign('tugas_id')->references('id')->on('tugas')->onDelete('cascade');
         });
     }
@@ -34,6 +28,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tugas_details');
+        Schema::table('diskusi', function (Blueprint $table) {
+            $table->dropColumn('tugas_id');
+        });
     }
 };

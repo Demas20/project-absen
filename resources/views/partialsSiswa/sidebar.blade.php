@@ -33,33 +33,13 @@
         @if (Auth::guard('admin')->user()->role === 'siswa')
         <ul class="pcoded-item pcoded-left-item">
             {{-- //project --}}
-            <li class=" ">
-                <a href="index.html" class="waves-effect waves-dark">
+            <li class="{{ Route::currentRouteName() === 'siswa.index' ? 'active' : '' }}">
+                <a href="{{route('siswa.index')}}" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-pencil"></i><b>D</b></span>
                     <span class="pcoded-mtext" data-i18n="nav.dash.main">Project</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-        @endif
-        @if (Auth::guard('admin')->user()->role === 'guru')
-{{-- project --}}
-<ul class="pcoded-item pcoded-left-item">
-        <li class=" ">
-            <a href="index.html" class="waves-effect waves-dark">
-                <span class="pcoded-micon"><i class="ti-target"></i><b>D</b></span>
-                <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Project</span>
-                <span class="pcoded-mcaret"></span>
-            </a>
-        </li>
-        {{-- Penilaian --}}
-        <li class=" ">
-            <a href="index.html" class="waves-effect waves-dark">
-                <span class="pcoded-micon"><i class="ti-pencil"></i><b>D</b></span>
-                <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Penilaian</span>
-                <span class="pcoded-mcaret"></span>
-            </a>
-        </li>
-</ul>
         @endif
     </div>
 </nav>

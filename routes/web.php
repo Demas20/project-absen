@@ -6,6 +6,7 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\TugasController;
 use App\Http\Controllers\DiskusiController;
+use App\Http\Controllers\SubtaskController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,6 +77,11 @@ Route::middleware(['auth:admin', 'admin.role:siswa'])->group(function () {
     Route::get('/tugas', [TugasController::class, 'tugasSiswa'])->name('tugas.siswa');
     Route::post('/tugas/{id}/upload', [TugasController::class, 'uploadJawaban'])->name('upload.jawaban');
     Route::post('/tugas/{id}/diskusi', [DiskusiController::class, 'kirimPesan'])->name('diskusi.kirim');
+    Route::get('/detail/tugas/{id}/details', [TugasController::class, 'detailTugas'])->name('detail.tugas');
+    // routes/web.php
+    Route::post('/upload-subtask/{tugasDetailId}', [SubtaskController::class, 'uploadJawaban'])->name('upload.subtask');
+    Route::post('/diskusi/store/{tugasId}/{groupId}', [DiskusiController::class, 'store'])->name('diskusi.store');
+
 
 });
 // Auth::routes();
