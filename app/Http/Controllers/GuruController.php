@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Teacher;
+use App\Models\Tugas;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin;
 class GuruController extends Controller
@@ -99,4 +100,13 @@ class GuruController extends Controller
             'message' => 'Data valid.'
         ], 200);
     }
+    public function indexPenilaian()
+    {
+        $tugas = Tugas::with(['details.groupSubtasks' => function ($query) {
+            $query->with('group'); // Include data kelompok
+        }])->get();
+        // dd($tugas);
+        return view('guru.penilaian', compact('tugas'));
+    }
+
 }

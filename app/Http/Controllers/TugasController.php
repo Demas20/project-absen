@@ -142,7 +142,7 @@ class TugasController extends Controller
             return redirect()->route('tugas.index')->with('error', 'Tugas tidak ditemukan.');
         }
             // dd($diskusi);
-        // dd($groupId);
+        // dd($tugas->details);
         // dd($tugas->details);
         return view('tugas.detail', compact('tugas','diskusi','groupId','siswaDetails'));
     }

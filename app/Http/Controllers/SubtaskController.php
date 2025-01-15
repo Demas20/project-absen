@@ -46,10 +46,13 @@ class SubtaskController extends Controller
         }
 
         // Simpan file ke storage
-        $filePath = $request->file('file')->store('uploads/subtask', 'public'); // Menyimpan file ke 'storage/app/uploads/subtasks'
+        if ($request->hasFile('file')) {
+            $groupSubtask->file = $request->file('file')->store('uplaodJawaban', 'public');
+        }
+        // $filePath = $request->file('file')->store('uploadsSubtask', 'public'); // Menyimpan file ke 'storage/app/uploads/subtasks'
 
         // Update status dan file
-        $groupSubtask->file = $filePath;
+        // $groupSubtask->file = $filePath;
         $groupSubtask->is_completed = true; // Setelah upload, anggap selesai
         $groupSubtask->save();
 

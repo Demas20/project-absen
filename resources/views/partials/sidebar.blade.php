@@ -175,16 +175,16 @@
         @if (Auth::guard('admin')->user()->role === 'guru')
 {{-- project --}}
 <ul class="pcoded-item pcoded-left-item">
-        <li class=" ">
-            <a href="index.html" class="waves-effect waves-dark">
-                <span class="pcoded-micon"><i class="ti-target"></i><b>D</b></span>
-                <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Project</span>
-                <span class="pcoded-mcaret"></span>
-            </a>
-        </li>
+    <li class="{{ Route::currentRouteName() === 'tugas.dashboard' ? 'active' : '' }}">
+        <a href="{{route('tugas.dashboard')}}" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="ti-book"></i><b>D</b></span>
+            <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Tugas / Project</span>
+            <span class="pcoded-mcaret"></span>
+        </a>
+    </li>
         {{-- Penilaian --}}
-        <li class=" ">
-            <a href="index.html" class="waves-effect waves-dark">
+        <li class="{{ Route::currentRouteName() === 'penilaian.index' ? 'active' : '' }}">
+            <a href="{{route('penilaian.index')}}" class="waves-effect waves-dark">
                 <span class="pcoded-micon"><i class="ti-pencil"></i><b>D</b></span>
                 <span class="pcoded-mtext" data-i18n="nav.dash.main">Data Penilaian</span>
                 <span class="pcoded-mcaret"></span>

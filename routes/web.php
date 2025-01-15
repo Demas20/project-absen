@@ -69,6 +69,15 @@ Route::prefix('admin')->group(function () {
 
 
 Route::middleware(['auth:admin', 'admin.role:guru'])->group(function () {
+    Route::get('/guru/dashboard', [GuruController::class, 'index'])->name('guru.dashboard');
+    Route::get('/guru/penilaian', [GuruController::class, 'indexPenilaian'])->name('penilaian.index');
+    Route::patch('/guru/penilaian/{subtask}', [GuruController::class, 'updatePenilaian'])->name('penilaian.update');
+
+    //tugas
+ 
+ Route::get('/tugas/dashboard', [TugasController::class, 'index'])->name('tugas.dashboard');
+ Route::get('/tugas/tambah', [TugasController::class, 'create'])->name('tugas.tambah');
+ Route::post('/tugas/tambah', [TugasController::class, 'store'])->name('tugas.store');
 
 });
 

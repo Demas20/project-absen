@@ -41,9 +41,13 @@
                                 <a href="{{ asset('storage/' . $detail->file) }}" class="btn btn-primary btn-sm mt-2" download>Download Subtugas</a>
                             @endif
 
-                            <!-- Cek jika belum selesai, tampilkan tombol upload -->
+                            <!-- UploadJawaban -->
                             @if($detail->groupSubtasks->isNotEmpty())
-                            <a href="{{ asset('storage/' . $detail->file) }}" class="btn btn-success btn-sm mt-2" download>Download Jawaban</a>
+                            @foreach($detail->groupSubtasks as $subtask)
+                                @if($subtask->file)
+                                    <a href="{{ asset('storage/' . $subtask->file) }}" class="btn btn-success btn-sm mt-2" download>Download Jawaban</a>
+                                @endif
+                            @endforeach
                             @else
                             <button class="btn btn-info btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#uploadModal{{ $detail->id }}">Upload Jawaban</button>
 
