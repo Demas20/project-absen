@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\Tugas;
 class AdminController extends Controller
 {
     public function showLoginForm()
@@ -38,6 +40,13 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/admin/login');
+    }
+    public function dashboard(){
+        $student = Student::count();
+        $teacher = Teacher::count();
+        $tugas = Tugas::count();
+        // dd($student);
+        return view('admin.index',compact('student','teacher','tugas'));
     }
 }
 

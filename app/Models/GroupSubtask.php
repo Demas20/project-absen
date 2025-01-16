@@ -18,6 +18,7 @@ class GroupSubtask extends Model
         'group_id',
         'file',
         'is_completed',
+        'nilai',
     ];
 
     /**

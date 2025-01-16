@@ -37,21 +37,21 @@
                                   <div class="card-block">
                                       <div class="row align-items-center">
                                           <div class="col-8">
-                                              <h4 class="text-c-purple">$30200</h4>
-                                              <h6 class="text-muted m-b-0">All Earnings</h6>
+                                              <h4 class="text-c-purple">{{$student}}</h4>
+                                              <h6 class="text-muted m-b-0">Siswa</h6>
                                           </div>
                                           <div class="col-4 text-right">
-                                              <i class="fa fa-bar-chart f-28"></i>
+                                              <i class="fa fa-user f-28"></i>
                                           </div>
                                       </div>
                                   </div>
                                   <div class="card-footer bg-c-purple">
                                       <div class="row align-items-center">
                                           <div class="col-9">
-                                              <p class="text-white m-b-0">% change</p>
+                                              <a href="{{ route('siswa.dashboard')}}"><p class="text-white m-b-0">Lihat Siswa</p></a>
                                           </div>
                                           <div class="col-3 text-right">
-                                              <i class="fa fa-line-chart text-white f-16"></i>
+                                              <i class="fa fa-arrow text-white f-16"></i>
                                           </div>
                                       </div>
 
@@ -63,8 +63,8 @@
                                   <div class="card-block">
                                       <div class="row align-items-center">
                                           <div class="col-8">
-                                              <h4 class="text-c-green">290+</h4>
-                                              <h6 class="text-muted m-b-0">Page Views</h6>
+                                              <h4 class="text-c-green">{{$teacher}}</h4>
+                                              <h6 class="text-muted m-b-0">Guru</h6>
                                           </div>
                                           <div class="col-4 text-right">
                                               <i class="fa fa-file-text-o f-28"></i>
@@ -74,7 +74,7 @@
                                   <div class="card-footer bg-c-green">
                                       <div class="row align-items-center">
                                           <div class="col-9">
-                                              <p class="text-white m-b-0">% change</p>
+                                              <a href="{{route('guru.dashboard')}}"><p class="text-white m-b-0">Lihat Guru</p></a>
                                           </div>
                                           <div class="col-3 text-right">
                                               <i class="fa fa-line-chart text-white f-16"></i>

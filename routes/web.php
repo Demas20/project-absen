@@ -7,6 +7,8 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\TugasController;
 use App\Http\Controllers\DiskusiController;
 use App\Http\Controllers\SubtaskController;
+use App\Http\Controllers\PlagiarismController;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,9 +31,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
     Route::middleware('auth:admin', 'admin.role:admin')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.index'); // Buat file Blade ini
-        })->name('admin.dashboard');
+        Route::get('/dashboard',[AdminController::class, 'dashboard'])->name('admin.dashboard');
+
         Route::post('/check-username', [GuruController::class, 'checkUsername'])->name('check.username');
 
         Route::get('/siswa/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
@@ -74,10 +75,13 @@ Route::middleware(['auth:admin', 'admin.role:guru'])->group(function () {
     Route::patch('/guru/penilaian/{subtask}', [GuruController::class, 'updatePenilaian'])->name('penilaian.update');
 
     //tugas
- 
+
  Route::get('/tugas/dashboard', [TugasController::class, 'index'])->name('tugas.dashboard');
  Route::get('/tugas/tambah', [TugasController::class, 'create'])->name('tugas.tambah');
  Route::post('/tugas/tambah', [TugasController::class, 'store'])->name('tugas.store');
+ Route::get('/plagiarism/check/{groupSubtaskId}/cek', [PlagiarismController::class, 'checkPlagiarism'])->name('plagiarism.check');
+
+
 
 });
 

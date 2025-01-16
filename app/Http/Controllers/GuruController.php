@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
 use App\Models\Tugas;
+use App\Models\GroupSubtask;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin;
 class GuruController extends Controller
@@ -108,5 +109,21 @@ class GuruController extends Controller
         // dd($tugas);
         return view('guru.penilaian', compact('tugas'));
     }
+    public function updatePenilaian(Request $request, $id)
+        {
+            $request->validate([
+                'nilai' => 'required|integer|min:0|max:100',
+            ]);
+
+            $subtask = GroupSubtask::find($id);
+            if (!$subtask) {
+                return redirect()->back()->with('error', 'Subtugas tidak ditemukan.');
+            }
+
+            $subtask->nilai = $request->nilai;
+            $subtask->save();
+
+            return redirect()->route('penilaian.index')->with('success', 'Nilai berhasil diperbarui.');
+        }
 
 }

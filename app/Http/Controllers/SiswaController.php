@@ -246,11 +246,39 @@ class SiswaController extends Controller
     public function halamanSiswa(){
         // join login siswa nampilkan kelas dan group join bang berdasarkan akun login yaitu name
         $siswa = Auth::guard('admin')->user();
-        $tugas = Tugas::all();
-        // $tugasID = Tugas::find('id');
-        // $tugasID = $tugas->id; // Asumsikan $tugas sudah didefinisikan
+        $groupSiswa = $siswa->group;
         $detailTugas = TaskDetail::get();
+        $groupId = DB::table('students')
+        ->where('name', '=', $siswa->name)
+        ->value('group_id');
+        $tugas = Tugas::with(['details.groupSubtasks'])->get();
 
+        foreach ($tugas as $item) {
+            $groupNilai = [];
+
+            foreach ($item->details as $detail) {
+                $totalNilai = 0;
+                $totalSubtasks = 0;
+
+                // Hanya hitung nilai subtugas yang sesuai dengan group siswa
+                foreach ($detail->groupSubtasks as $subtask) {
+                    if ($subtask->group_id == $groupId && !is_null($subtask->nilai)) {
+                        $totalNilai += $subtask->nilai;
+                        $totalSubtasks++;
+                    }
+                }
+
+                // Simpan nilai rata-rata hanya jika ada subtugas yang sesuai
+                if ($totalSubtasks > 0) {
+                    $groupNilai[] = [
+                        'detailName' => $detail->name,
+                        'rataRataNilai' => $totalNilai / $totalSubtasks,
+                    ];
+                }
+            }
+
+            $item->groupNilai = $groupNilai;
+        }
         // dd($siswa);
     // Lakukan join untuk mengambil kelas dan kelompok
     $siswaDetails = DB::table('students')

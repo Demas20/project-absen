@@ -9,6 +9,10 @@
                 <h5>{{ $task->name }}</h5>
                 <p>{{ $task->description }}</p>
             </div>
+            @if(session('message'))
+                <div class="alert alert-info">{{ session('message') }}</div>
+            @endif
+
             <div class="card-body">
                 <table class="table table-bordered">
                     <thead>
@@ -17,6 +21,7 @@
                             <th>Subtugas</th>
                             <th>Status</th>
                             <th>File</th>
+                            <th>Check Plagiarisme</th>
                             <th>Nilai</th>
                         </tr>
                     </thead>
@@ -40,6 +45,14 @@
                                             <span class="text-muted">Tidak Ada</span>
                                         @endif
                                     </td>
+
+                                    <td>
+                                        <a href="{{ route('plagiarism.check', $subtask->id) }}" class="btn btn-info">Cek</a>
+                                        {{-- <form action="{{ route('plagiarism.check', $subtask->id) }}" method="GET">
+                                            <button type="submit" class="btn btn-info">Cek Plagiarisme</button>
+                                        </form> --}}
+                                    </td>
+
                                     <td>
                                         <form action="{{ route('penilaian.update', $subtask->id) }}" method="POST">
                                             @csrf

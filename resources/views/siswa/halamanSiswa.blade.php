@@ -3,48 +3,89 @@
 <div class="container">
     <h3 class="p-2">Daftar Tugas</h3>
     <div class="list-group">
-            @csrf
-            @foreach($tugas as $item)
-            <a href="{{route('detail.tugas',$item->id)}}">
-                <div class="list-group-item m-2">
-                    <h5>{{ $item->name }}</h5>
-                    <p>{{ $item->description }}</p>
-                    <p>Deadline: {{ \Carbon\Carbon::parse($item->deadline)->format('d M Y, H:i') }}</p>
-                    <p>Kelas: {{ $siswaDetails->kelas_name }}</p>
+        @csrf
+        @foreach($tugas as $item)
+        @php
+            // Cek apakah deadline telah lewat
+            $deadline = \Carbon\Carbon::parse($item->deadline);
+            $isPastDeadline = \Carbon\Carbon::now()->greaterThan($deadline);
+        @endphp
 
-                    <!-- Download Tugas -->
-                    <a href="{{ asset('storage/'.$item->file) }}" class="btn btn-primary btn-sm" download>Download Tugas</a>
+        <a href="{{ !$isPastDeadline ? route('detail.tugas', $item->id) : '#' }}" class="{{ $isPastDeadline ? 'disabled' : '' }}" id="task-{{ $item->id }}">
+            <div class="list-group-item m-2">
+                <h5>{{ $item->name }}</h5>
+                <p>{{ $item->description }}</p>
+                <p>Deadline: {{ $deadline->format('d M Y, H:i') }}</p>
+                <p>Kelas: {{ $siswaDetails->kelas_name }}</p>
 
-                    <!-- Upload Jawaban -->
-                    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#uploadModal{{ $item->id }}">Upload Jawaban</button>
+                <!-- Countdown Timer -->
+                <p id="countdown-{{ $item->id }}" class="text-success">
+                    @if ($isPastDeadline)
+                        Waktu Habis
+                    @else
+                        Waktu Tersisa: <span class="countdown-timer" data-deadline="{{ \Carbon\Carbon::parse($item->deadline)->toISOString() }}"></span>
+                    @endif
+                </p>
 
-                    <!-- Modal Upload -->
-                    <div class="modal fade" id="uploadModal{{ $item->id }}" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form action="{{ route('upload.jawaban', $item->id) }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="uploadModalLabel">Upload Jawaban</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="file" class="form-label">Pilih File</label>
-                                            <input type="file" class="form-control" name="file" required>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                        <button type="submit" class="btn btn-success">Upload</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            @endforeach
+                <!-- Tampilkan Nilai Berdasarkan Subtugas -->
+                <h5>Nilai Berdasarkan Subtugas:</h5>
+                @if (count($item->groupNilai) > 0)
+                <ul>
+                    @foreach ($item->groupNilai as $group)
+                        <li>
+                            <strong>{{ $group['detailName'] }}:</strong>
+                            <span class="text-success">
+                                {{ number_format($group['rataRataNilai'], 2) }}
+                            </span>
+                        </li>
+                    @endforeach
+                </ul>
+                @else
+                <p class="text-warning">Belum ada nilai untuk group Anda.</p>
+                @endif
+            </div>
+        </a>
+        @endforeach
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Loop untuk semua tugas dan set countdown timer
+        @foreach($tugas as $item)
+            @php
+                // Cek apakah deadline belum lewat
+                $deadline = \Carbon\Carbon::parse($item->deadline);
+                $isPastDeadline = \Carbon\Carbon::now()->greaterThan($deadline);
+            @endphp
+
+            @if (!$isPastDeadline)  // Hanya jalankan countdown jika deadline belum lewat
+                var deadline = new Date("{{ \Carbon\Carbon::parse($item->deadline)->toISOString() }}").getTime();
+                var countdownElement = document.getElementById("countdown-{{ $item->id }}").getElementsByClassName("countdown-timer")[0];
+                var taskLink = document.getElementById("task-{{ $item->id }}");
+
+                var countdownInterval = setInterval(function() {
+                    var now = new Date().getTime();
+                    var distance = deadline - now;
+
+                    if (distance <= 0) {
+                        clearInterval(countdownInterval);
+                        countdownElement.innerHTML = "Waktu Habis";
+                        taskLink.classList.add('disabled');  // Disable link setelah deadline
+                    } else {
+                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                        countdownElement.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+                    }
+                }, 1000);
+            @else
+                // Jika deadline telah lewat, tampilkan "Waktu Habis" dan disable link
+                document.getElementById("countdown-{{ $item->id }}").innerText = "Waktu Habis";
+                document.getElementById("task-{{ $item->id }}").classList.add('disabled');
+            @endif
+        @endforeach
+    });
+</script>
 @endsection

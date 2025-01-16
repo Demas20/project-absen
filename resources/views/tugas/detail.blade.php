@@ -36,6 +36,13 @@
                                     <span class="text-danger">Belum Selesai</span>
                                 @endif
                             </p>
+                            <p>Nilai :
+                                @if($detail->groupSubtasks->isNotEmpty())
+                                @foreach($detail->groupSubtasks as $subtask)
+                                    <span>{{$subtask->nilai}}</span>
+                                @endforeach
+                            @endif
+                            </p>
                             @if($detail->file)
                                 <!-- Download Subtugas -->
                                 <a href="{{ asset('storage/' . $detail->file) }}" class="btn btn-primary btn-sm mt-2" download>Download Subtugas</a>
