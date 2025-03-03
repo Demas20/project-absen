@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('admins', function (Blueprint $table) {
+        Schema::table('admin', function (Blueprint $table) {
             $table->string('status_login')->default('offline'); // Default statusnya 'offline'
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('admins', function (Blueprint $table) {
+        Schema::table('admin', function (Blueprint $table) {
             $table->dropColumn('status_login');
         });
     }
