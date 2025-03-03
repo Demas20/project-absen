@@ -98,9 +98,9 @@ Route::middleware(['auth:admin', 'admin.role:siswa'])->group(function () {
 
 });
 
-// Fallback route untuk menangani route yang tidak ada
+
 Route::fallback(function () {
-    // Periksa role pengguna
+
     if (auth()->guard('admin')->check()) {
         $role = auth()->guard('admin')->user()->role;
 
@@ -117,7 +117,7 @@ Route::fallback(function () {
         }
     }
 
-    // Jika pengguna tidak terautentikasi, arahkan ke halaman login
+
     return redirect()->route('admin.login');
 });
 
