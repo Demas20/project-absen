@@ -12,9 +12,9 @@ class GuruController extends Controller
 {
     public function index(){
         $teacher = DB::table('teacher')
-            ->join('admins', 'teacher.name', '=', 'admins.name') // Sesuaikan kondisi join
-            ->select('admins.role','teacher.NIP','teacher.name', 'admins.status_login')
-            ->where('admins.role', '=', 'guru')->get();
+            ->join('admin', 'teacher.name', '=', 'admin.name') // Sesuaikan kondisi join
+            ->select('admin.role','teacher.NIP','teacher.name', 'admin.status_login')
+            ->where('admin.role', '=', 'guru')->get();
 
         return view('Guru.index',compact('teacher'));
     }

@@ -97,6 +97,28 @@ Route::middleware(['auth:admin', 'admin.role:siswa'])->group(function () {
 
 
 });
-// Auth::routes();
+
+// Fallback route untuk menangani route yang tidak ada
+Route::fallback(function () {
+    // Periksa role pengguna
+    if (auth()->guard('admin')->check()) {
+        $role = auth()->guard('admin')->user()->role;
+
+        // Arahkan ke halaman yang sesuai berdasarkan role
+        switch ($role) {
+            case 'admin':
+                return redirect()->route('admin.dashboard');
+            case 'guru':
+                return redirect()->route('guru.dashboard');
+            case 'siswa':
+                return redirect()->route('siswa.index');
+            default:
+                return redirect()->route('admin.login');
+        }
+    }
+
+    // Jika pengguna tidak terautentikasi, arahkan ke halaman login
+    return redirect()->route('admin.login');
+});
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

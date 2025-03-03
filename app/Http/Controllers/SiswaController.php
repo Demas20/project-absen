@@ -33,7 +33,7 @@ class SiswaController extends Controller
         $validated = $request->validate([
             'NISN' => 'required|unique:students,NISN', // Pastikan NIP unik di tabel teacher
             'name' => 'required|string|max:255|unique:students,name',
-            'username' => 'required|unique:admins,username', // Pastikan username unik di tabel admin
+            'username' => 'required|unique:admin,username', // Pastikan username unik di tabel admin
             'password' => 'required|string|min:6', // Password wajib dan minimal 6 karakter
             'profile_pic' => 'nullable|image|max:2048',
             'class_id' => 'required',
