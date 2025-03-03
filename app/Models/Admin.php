@@ -10,7 +10,7 @@ use Illuminate\Auth\Authenticatable;
 class Admin extends Model implements AuthenticatableContract
 {
     use HasFactory, Authenticatable;
-    protected $table = 'admins';
+    protected $table = 'admin';
     protected $fillable = [
         'name',
         'username',
